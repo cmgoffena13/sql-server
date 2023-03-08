@@ -16,11 +16,11 @@ INNER JOIN dbo.sysjobactivity AS a
     ON a.job_id = j.job_id
 INNER JOIN dbo.sysjobsteps AS js
     ON js.job_id = a.job_id
-    AND js.step_id = ISNULL( a.last_executed_step, 0 ) + 1
+    AND js.step_id = ISNULL( a.last_executed_step_id, 0 ) + 1
 INNER JOIN dbo.syssessions AS s
     ON s.session_id = a.session_id
-INNER JOIN ( SELECT MAX( agent_start_time ) AS max_agent_start_time FROM dbo.syssessions ) AS s_max
-    ON s_max.max_agent_start_time = s.agent_start_time
+INNER JOIN ( SELECT MAX( agent_start_date ) AS max_agent_start_time FROM dbo.syssessions ) AS s_max
+    ON s_max.max_agent_start_time = s.agent_start_date
 CROSS APPLY(
     SELECT TOP 1
     'Step ' + CAST( step_id AS VARCHAR(3) ) AS LastStep
