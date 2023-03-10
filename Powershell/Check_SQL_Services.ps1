@@ -15,6 +15,5 @@ foreach ($Computer in $Servers) {
         else {
             Write-Host -ForegroundColor 'Yellow' $_.DisplayName 'has status: ' $_.Status
         }
-
     }
 }
