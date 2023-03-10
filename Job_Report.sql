@@ -1,6 +1,11 @@
 USE [msdb];
 GO
 
+/*====================================================================================================
+Job Report - Cortland Goffena
+
+Shows current status of job and history of the job for comparisons
+====================================================================================================*/
 
 DECLARE @JobName NVARCHAR(255) = 'JobName'
 

@@ -1,6 +1,12 @@
 USE {database_name};
 GO
 
+/*====================================================================================================
+Stored Procedure Performance - Cortland Goffena
+
+Shows procedures with highest total logical reads to help pinpoint performance tuning opportunities
+Note: stats may be reset by some sql server backend actions, as well as a restart
+====================================================================================================*/
 
 SELECT TOP 50
 CONCAT( (

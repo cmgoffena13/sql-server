@@ -1,6 +1,11 @@
 USE [msdb];
 GO
 
+/*====================================================================================================
+Active Jobs - Cortland Goffena
+
+Shows current running jobs, status, their runtime, and the last step that could execute
+====================================================================================================*/
 
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 SELECT

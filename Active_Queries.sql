@@ -1,6 +1,12 @@
 USE [master];
 GO
 
+/*====================================================================================================
+Active Queries - Cortland Goffena
+
+Shows current running queries and a multitude of details 
+====================================================================================================*/
+
 /*
 KILL 194                        --Kills session
 KILL 194 WITH STATUSONLY        --Shows progress on rollback after kill

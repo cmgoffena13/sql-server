@@ -1,6 +1,12 @@
 USE {database_name};
 GO
 
+/*====================================================================================================
+Table Columns Space Used - Cortland Goffena
+
+Shows datatype of each column and the space used by each column. 
+It must scan entire table for the results.
+====================================================================================================*/
 
 DECLARE @TableName sysname = 'schema.name';
 

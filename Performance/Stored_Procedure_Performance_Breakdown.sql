@@ -1,6 +1,13 @@
 USE {database_name};
 GO
 
+/*====================================================================================================
+Stored Procedure Performance Breakdown - Cortland Goffena
+
+Shows distribution breakdowns for a stored procedure and its query statements
+This helps pintpoint the problem query in a stored procedure. Use in tandem with Stored_Procedure_Performance.
+Note: stats may be reset by some sql server backend actions, as well as a restart
+====================================================================================================*/
 
 DECLARE @ProcedureName VARCHAR(120) = 'schema.name'
 

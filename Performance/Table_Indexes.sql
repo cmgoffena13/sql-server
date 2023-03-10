@@ -1,6 +1,12 @@
 USE {database_name}; 
 GO
 
+/*====================================================================================================
+Table Indexes - Cortland Goffena
+
+Shows all indexes on table and corresponding information such as usage, size, and object definition
+Note: stats may be reset by some sql server backend actions, as well as a restart
+====================================================================================================*/
 
 DECLARE @TableName VARCHAR(100) = 'schema.tablename'
 
