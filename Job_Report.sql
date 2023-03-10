@@ -38,6 +38,7 @@ WHERE sh.step_id=0
     AND sj.name = @JobName
 ORDER BY dbo.agent_datetime(sh.run_date, sh.run_time) DESC
 
+
 DROP TABLE IF EXISTS #JobActivity
 SELECT
 sj.name AS JobName,
@@ -45,10 +46,7 @@ sj.enabled AS JobEnabled,
 CAST( sa.start_execution_date AS DATE ) AS StartDate,
 'Running' AS JobStatus,
 'Step ' + CAST( sjs.step_id AS VARCHAR(3) ) + ': ' + sjs.step_name AS JobStatusDetails,
-CASE 
-    WHEN sa.start_execution_date IS NOT NULL AND sa.stop_execution_date IS NOT NULL THEN 1 
-    ELSE 0 
-END AS JobFinished,
+0 AS JobFinished,
 CAST( sa.start_execution_date AS TIME(2) ) AS StartTime,
 CAST( '99:99:99.00' AS NVARCHAR(11) ) AS EndTime,
 RIGHT( '0' + CAST( DATEDIFF( SECOND, sa.start_execution_date, CAST( GETDATE() AS DATETIME ) ) / 3600 AS NVARCHAR(2) ), 2 ) + ':' + 
@@ -63,8 +61,8 @@ INNER JOIN dbo.sysjobsteps AS sjs
     AND sjs.step_id = ISNULL( sa.last_executed_step_id, 0 ) + 1
 WHERE SA.session_id = ( SELECT MAX( session_id ) FROM msdb.dbo.sysjobactivity )
     AND SJ.name = @JobName
-    AND SA.start_execution_date IS NOT NULL 
-    AND SA.stop_execution_date IS NULL
+    AND sa.start_execution_date IS NOT NULL 
+    AND sa.stop_execution_date IS NULL
 
 
 SELECT
