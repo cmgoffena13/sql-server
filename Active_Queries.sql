@@ -31,6 +31,12 @@ CASE
          RIGHT( '0' + CAST( ( ( er.total_elapsed_time/1000 ) % 60 ) AS VARCHAR(2)), 2 )
 END AS RunTime,
 CASE
+    WHEN er.wait_time > 360000000 THEN 'Too Long'
+    ELSE RIGHT( '0' + CAST( ( er.wait_time/1000 ) / 3600 AS VARCHAR(2)), 2 ) + ':' + 
+         RIGHT( '0' + CAST( ( ( er.wait_time/1000 ) / 60) % 60 AS VARCHAR(2) ), 2 ) + ':' + 
+         RIGHT( '0' + CAST( ( ( er.wait_time/1000 ) % 60 ) AS VARCHAR(2)), 2 )
+END AS CurrentWait,
+CASE
     WHEN er.status = 'suspended' AND er.wait_type = 'RESOURCE_SEMAPHORE' THEN 'waiting: Out Of Available Memory'
     WHEN er.status = 'suspended' THEN 'waiting: ' + er.wait_type
     ELSE er.status
