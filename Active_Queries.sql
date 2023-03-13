@@ -51,14 +51,13 @@ CASE
                 SUBSTRING(
                     s.text,
                     PATINDEX( '%[[]%', s.text ),
-                    ( LEN( s.text ) - PATINDEX( '%[[]%', s.text ) )
-                ),
+                    ( LEN( s.text ) - PATINDEX( '%[[]%', s.text ) ) ),
                 0,
                 PATINDEX( '%][^.]%', 
                     SUBSTRING( s.text, 
                         PATINDEX( '%[[]%', s.text ), 
                         ( LEN( s.text ) - PATINDEX( '%[[]%', s.text ) ) )
-                         ) + 1
+                ) + 1
             ), '[', ''), ']', '')
     ELSE 'Unable to find Procedure Name'
 END AS ProcedureName,
