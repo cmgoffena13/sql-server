@@ -71,10 +71,11 @@ SUBSTRING(
 ) AS SQLQuery,
 s.text AS SQLScript,
 qp.query_plan AS QueryPlan,
-er.cpu_time / 60 AS CPUTimeMins,
+er.granted_query_memory / 128 AS GrantMemoryMB,
 er.logical_reads / 128 AS LogicalReadsMB,
 er.reads / 128 AS PhysicalReadsMB,
 er.writes / 128 AS PhysicalWritesMB,
+er.cpu_time / 1000 AS CPUTimeSeconds,
 CASE
     WHEN es.row_count IN ( 1, 0 ) THEN NULL
     ELSE es.row_count
@@ -96,6 +97,10 @@ CASE
     WHEN er.estimated_completion_time = 0 THEN NULL
     ELSE er.estimated_completion_time / ( 1000 * 60 )
 END AS EstimatedCompletionTimeMins,
+CASE
+	WHEN er.parallel_worker_count > 0 THEN 1
+	ELSE 0 
+END AS IsParallel,
 UPPER( es.host_name ) AS HostName,
 UPPER( es.program_name ) AS ProgramName,
 '>>>>>' AS [TraceFlag7412],
