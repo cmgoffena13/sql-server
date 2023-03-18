@@ -8,6 +8,8 @@ Shows procedures with highest total logical reads to help pinpoint performance t
 Note: stats may be reset by some sql server backend actions, as well as a restart
 ====================================================================================================*/
 
+
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 SELECT TOP 50
 CONCAT( (
     SELECT DATEDIFF( DAY, sqlserver_start_time, GETDATE() ) AS DaysSinceLastRestart FROM sys.dm_os_sys_info

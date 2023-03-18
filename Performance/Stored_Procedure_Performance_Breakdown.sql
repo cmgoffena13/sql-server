@@ -14,6 +14,8 @@ DECLARE @ProcedureName VARCHAR(120) = 'schema.name'
 DROP TABLE IF EXISTS #base
 DROP TABLE IF EXISTs #agg
 
+
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 SELECT 
 @ProcedureName AS ProcedureName,
 ROW_NUMBER() OVER ( ORDER BY q.statement_start_offset ) AS StatementOrder,
