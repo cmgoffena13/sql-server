@@ -2,6 +2,13 @@ USE {database_name};
 GO
 
 
+/*====================================================================================================
+Table Space Used - Cortland Goffena
+
+Shows total space used by largest tables, broken down by index and average row size
+====================================================================================================*/
+
+
 DECLARE @Top INT = 25;
 
 
