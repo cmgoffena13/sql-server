@@ -54,8 +54,8 @@ CASE
 END AS ProcedureName,
 t.text AS Query,
 pl.query_plan AS ExecutionPlan,
-CAST( CAST( ROUND ( CAST( ( s.TotalElapsedTime / s.TotalExecutionCount ) / 1000000 AS DECIMAL ), 0 ) AS INT ) AS VARCHAR ) + ' Seconds' AS AvgElapsedTime,
-CAST( CAST( ROUND ( CAST( ( s.TotalElapsedTime ) / 1000000 AS DECIMAL ), 0 ) AS INT ) AS VARCHAR ) + ' Seconds' AS TotalElapsedTime,
+CAST( CAST( CAST( ( s.TotalElapsedTime / s.TotalExecutionCount ) / 1000000 AS DECIMAL ) AS INT ) AS VARCHAR(30) ) + ' Seconds' AS AvgElapsedTime,
+CAST( CAST( CAST( ( s.TotalElapsedTime ) / 1000000 AS DECIMAL ) AS INT ) AS VARCHAR(30) ) + ' Seconds' AS TotalElapsedTime,
 CASE 
     WHEN LEN( s.TotalLogicalReads / s.TotalExecutionCount ) > 9 THEN CAST( CAST( LEFT( s.TotalLogicalReads / s.TotalExecutionCount, LEN( s.TotalLogicalReads / s.TotalExecutionCount ) - 9 ) AS VARCHAR(30) ) + ' Billion Reads' AS VARCHAR(30) )
 	WHEN LEN( s.TotalLogicalReads / s.TotalExecutionCount ) > 6 THEN CAST( CAST( LEFT( s.TotalLogicalReads / s.TotalExecutionCount, LEN( s.TotalLogicalReads / s.TotalExecutionCount ) - 6 ) AS VARCHAR(30) ) + ' Million Reads' AS VARCHAR(30) )
