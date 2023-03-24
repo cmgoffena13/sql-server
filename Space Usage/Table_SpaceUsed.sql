@@ -71,7 +71,7 @@ CASE
     WHEN LEN ( RecordCount ) > 3 THEN CAST( CAST( LEFT( RecordCount, LEN ( RecordCount ) - 3 ) AS VARCHAR(30) ) + ' Thousand Records' AS VARCHAR)
     ELSE CAST(CAST(RecordCount AS VARCHAR(30) ) + ' Records' AS VARCHAR(30) )
 END AS RecordCount,
-CAST( CAST( TotalSpaceKB AS DECIMAL(17, 2) ) 
-    / CAST( NULLIF( RecordCount, 0 ) AS DECIMAL( 17, 2 ) ) AS DECIMAL( 17, 2 ) ) AS RecordSizeKB
+CAST( CAST( TotalSpaceKB * 1024 AS DECIMAL(17, 2) ) 
+    / CAST( NULLIF( RecordCount, 0 ) AS DECIMAL( 17, 2 ) ) AS DECIMAL( 17, 2 ) ) AS RecordSizeByte
 FROM CTE2
 ORDER BY TableSpaceGB DESC;
