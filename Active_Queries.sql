@@ -20,7 +20,10 @@ https://docs.microsoft.com/en-us/sql/relational-databases/system-dynamic-managem
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 SELECT
 er.session_id AS SessionID,
-CASE WHEN er.blocking_session_id = 0 THEN NULL ELSE er.blocking_session_id END AS BlockedBy,
+CASE 
+    WHEN er.blocking_session_id = 0 THEN NULL 
+    ELSE 'blocked by: ' + CAST( er.blocking_session_id AS VARCHAR(30) ) 
+END AS Blocked,
 CAST( er.start_time AS DATETIME2(0) ) AS StartTime,
 es.login_name AS LoginName,
 DB_NAME( er.database_id ) AS DatabaseName,
