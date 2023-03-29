@@ -39,7 +39,6 @@ SET @SQL = N'
 SET @SQL = REPLACE ( @SQL, '{mb_list}', @MBList );
 
 SET @SQL += N'
-
 	SELECT c.name AS ColumnName,
        CASE
            WHEN t.name = ''decimal'' THEN CONCAT ( t.name, '' ('', c.precision, '','', c.scale, '')'' )
@@ -60,7 +59,6 @@ SET @SQL += N'
 ';
 
 SET @SQL += N'
-
 	SELECT
 	TableName,
 	ColumnName,
@@ -86,7 +84,7 @@ SET @SQL += N'
 	M.DataType,
 	M.Nullable,
 	F.SpaceUsedMB,
-	CAST(CAST(F.SpaceUsedMB AS DECIMAL(17,2)) / 1024 AS DECIMAL(17,2)) AS SpaceUsedGB
+	CAST(CAST(F.SpaceUsedMB AS DECIMAL( 17, 2 )) / 1024 AS DECIMAL( 17, 2 )) AS SpaceUsedGB
 	FROM #Final AS F
 	INNER JOIN #Mapping AS M
 		ON M.ColumnName = F.ColumnName

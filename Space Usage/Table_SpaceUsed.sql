@@ -63,15 +63,15 @@ TotalSpaceGB,
 TableSpaceGB,
 IndexCount,
 IndexSpaceGB,
-ISNULL ( CAST( CAST( IndexSpaceGB AS DECIMAL(17, 2) )
-    / NULLIF( CAST( TotalSpaceGB AS DECIMAL(17, 2) ), 0 ) AS DECIMAL( 17, 2 ) ), 0 ) AS IndexPercent,
+ISNULL ( CAST( CAST( IndexSpaceGB AS DECIMAL( 17, 2 ) )
+    / NULLIF( CAST( TotalSpaceGB AS DECIMAL( 17, 2 ) ), 0 ) AS DECIMAL( 17, 2 ) ), 0 ) AS IndexPercent,
 CASE
     WHEN LEN ( RecordCount ) > 9 THEN CAST( CAST( LEFT( RecordCount, LEN ( RecordCount ) - 9 ) AS VARCHAR(30) ) + ' Billion Records' AS VARCHAR)
     WHEN LEN ( RecordCount ) > 6 THEN CAST( CAST( LEFT( RecordCount, LEN ( RecordCount ) - 6 ) AS VARCHAR(30) ) + ' Million Records' AS VARCHAR)
     WHEN LEN ( RecordCount ) > 3 THEN CAST( CAST( LEFT( RecordCount, LEN ( RecordCount ) - 3 ) AS VARCHAR(30) ) + ' Thousand Records' AS VARCHAR)
     ELSE CAST(CAST(RecordCount AS VARCHAR(30) ) + ' Records' AS VARCHAR(30) )
 END AS RecordCount,
-CAST( CAST( TotalSpaceKB * 1024 AS DECIMAL(17, 2) ) 
+CAST( CAST( TotalSpaceKB * 1024 AS DECIMAL( 17, 2) ) 
     / CAST( NULLIF( RecordCount, 0 ) AS DECIMAL( 17, 2 ) ) AS DECIMAL( 17, 2 ) ) AS RecordSizeByte
 FROM CTE2
 ORDER BY TableSpaceGB DESC;

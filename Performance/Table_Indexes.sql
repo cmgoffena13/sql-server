@@ -138,8 +138,8 @@ i.type_desc AS TypeDescription,
 CAST( 
     CAST(
         CAST( ( ps.used_page_count * 8 ) AS DECIMAL(17,2) )
-         / 1000 AS DECIMAL(17,2) )
- / 1000 AS DECIMAL(17,2) ) AS Gigabytes,
+         / 1024 AS DECIMAL(17,2) )
+ / 1024 AS DECIMAL(17,2) ) AS Gigabytes,
 CASE
     WHEN ISNULL ( iu.user_seeks, 0 ) + ISNULL ( iu.user_scans, 0 ) + ISNULL ( iu.user_lookups, 0 ) = 0 THEN 0
     ELSE 1
