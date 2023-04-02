@@ -145,7 +145,7 @@ CASE
     ELSE 1
 END AS IndexUsed,
 CASE
-    WHEN iu.user_scans > 0 AND iu.user_seeks = 0 THEN 1
+    WHEN iu.user_scans > 0 AND ISNULL ( iu.user_seeks , 0 ) = 0 THEN 1
     ELSE 0
 END AS ScanOnly,
 ISNULL ( iu.user_seeks, 0 ) AS Seeks,
