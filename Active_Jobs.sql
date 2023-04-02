@@ -15,8 +15,12 @@ a.start_execution_date AS StartDate,
 RIGHT( '0' + CAST( DATEDIFF( SECOND, a.start_execution_date, CAST( GETDATE() AS DATETIME ) ) / 3600 AS VARCHAR(2) ), 2 ) + ':' + 
     RIGHT( '0' + CAST( ( DATEDIFF( SECOND, a.start_execution_date, CAST( GETDATE() AS DATETIME ) ) / 60 ) % 60 AS VARCHAR(2) ), 2 ) + ':' + 
     RIGHT( '0' + CAST( DATEDIFF( SECOND, a.start_execution_date, CAST( GETDATE() AS DATETIME) ) % 60 AS VARCHAR(2) ), 2 ) AS RunTime,
-mx.LastStep
+mx.LastStep,
+js.subsystem AS StepSubSystem,
+c.name AS CategoryName
 FROM dbo.sysjobs AS j
+INNER JOIN msdb.dbo.syscategories AS c
+	ON c.category_id = j.category_id
 INNER JOIN dbo.sysjobactivity AS a
     ON a.job_id = j.job_id
 INNER JOIN dbo.sysjobsteps AS js
