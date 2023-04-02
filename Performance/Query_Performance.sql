@@ -8,10 +8,13 @@ Shows queries with highest total logical reads to help pinpoint performance tuni
 Note: stats may be reset by some sql server backend actions, as well as a restart
 ====================================================================================================*/
 
+DECLARE @Top INT = 100
+
 
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 DROP TABLE IF EXISTS #Queries
-SELECT query_plan_hash,
+SELECT ( @Top + 100 ) /* Query plan can have multiple rows */
+       query_plan_hash, 
        execution_count,
        total_elapsed_time,
        total_logical_reads,
@@ -20,7 +23,8 @@ SELECT query_plan_hash,
        creation_time,
        last_execution_time
 INTO #Queries
-FROM sys.dm_exec_query_stats;
+FROM sys.dm_exec_query_stats
+ORDER BY total_logical_reads DESC;
 
 
 CREATE NONCLUSTERED INDEX IX_#Queries 
@@ -111,7 +115,7 @@ CROSS APPLY sys.dm_exec_query_plan ( p.plan_handle ) AS pl
 ORDER BY s.TotalLogicalReads DESC;
 
 
-SELECT TOP 100
+SELECT TOP ( @Top )
 *
 FROM #Results
 /* Can then filter for any specific keywords */
